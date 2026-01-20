@@ -434,12 +434,15 @@ class AWSBillingExtractorV2:
             return None, None
 
         def parse_amount(amount_str):
-            """USD 금액 문자열에서 숫자 추출"""
+            """USD 금액 문자열에서 숫자 추출 (괄호가 있으면 음수)"""
             if not amount_str:
                 return 0.0
+            # 괄호가 있으면 음수 처리 (예: "(USD 4.27)" 또는 "USD (4.27)")
+            is_negative = '(' in amount_str and ')' in amount_str
             match = re.search(r'[\d,]+\.?\d*', amount_str.replace(',', ''))
             if match:
-                return float(match.group().replace(',', ''))
+                value = float(match.group().replace(',', ''))
+                return -value if is_negative else value
             return 0.0
 
         i = 0
