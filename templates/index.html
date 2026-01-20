@@ -351,7 +351,9 @@
                             <th>리전</th>
                             <th>설명</th>
                             <th>사용량</th>
-                            <th>금액 (USD)</th>
+                            <th>사용량 단위</th>
+                            <th>금액</th>
+                            <th>금액 단위</th>
                         </tr>
                     </thead>
                     <tbody id="previewBody"></tbody>
@@ -524,8 +526,10 @@
                     <td>${row.Service}</td>
                     <td>${row.Region}</td>
                     <td>${row.Description.substring(0, 50)}${row.Description.length > 50 ? '...' : ''}</td>
-                    <td>${row.Usage_Quantity} ${row.Unit}</td>
-                    <td>$${row.Amount_USD.toFixed(2)}</td>
+                    <td>${row.Usage_Quantity}</td>
+                    <td>${row.Usage_Unit}</td>
+                    <td>${row.Amount.toFixed(2)}</td>
+                    <td>${row.Amount_Unit}</td>
                 `;
                 tbody.appendChild(tr);
             });

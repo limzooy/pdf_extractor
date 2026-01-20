@@ -504,12 +504,11 @@ class AWSBillingExtractorV2:
                         csv_data.append({
                             'Service': current_service,
                             'Region': current_region or '',
-                            'Sub_Service': current_sub_service or '',
                             'Description': desc,
                             'Usage_Quantity': qty,
-                            'Unit': unit,
-                            'Amount_USD': parse_amount(amount),
-                            'Amount_String': amount
+                            'Usage_Unit': unit,
+                            'Amount': parse_amount(amount),
+                            'Amount_Unit': 'USD'
                         })
 
             i += 1
@@ -522,7 +521,7 @@ class AWSBillingExtractorV2:
             return ""
 
         output = io.StringIO()
-        fieldnames = ['Service', 'Region', 'Sub_Service', 'Description', 'Usage_Quantity', 'Unit', 'Amount_USD', 'Amount_String']
+        fieldnames = ['Service', 'Region', 'Description', 'Usage_Quantity', 'Usage_Unit', 'Amount', 'Amount_Unit']
         writer = csv.DictWriter(output, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(csv_data)
@@ -535,7 +534,7 @@ class AWSBillingExtractorV2:
             return False
 
         with open(output_path, 'w', encoding='utf-8-sig', newline='') as f:
-            fieldnames = ['Service', 'Region', 'Sub_Service', 'Description', 'Usage_Quantity', 'Unit', 'Amount_USD', 'Amount_String']
+            fieldnames = ['Service', 'Region', 'Description', 'Usage_Quantity', 'Usage_Unit', 'Amount', 'Amount_Unit']
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(csv_data)

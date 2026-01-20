@@ -154,7 +154,7 @@ def preview_data():
             if service not in service_summary:
                 service_summary[service] = {'count': 0, 'total': 0.0}
             service_summary[service]['count'] += 1
-            service_summary[service]['total'] += row['Amount_USD']
+            service_summary[service]['total'] += row['Amount']
 
         return jsonify({
             'success': True,
